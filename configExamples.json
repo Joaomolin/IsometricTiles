@@ -1,0 +1,82 @@
+{
+    "example2x2": {
+        "canvas": {
+            "widthMultiplier": 10,
+            "heightMultiplier": 9
+        },
+        "mapOrigin": {
+            "x": 4,
+            "y": 4,
+            "xOff": 0,
+            "yOff": 1
+        },
+        "mapGrid": {
+            "xSize": 2,
+            "ySize": 2
+        }
+    },
+    "example3x3": {
+        "canvas": {
+            "widthMultiplier": 10,
+            "heightMultiplier": 10
+        },
+        "mapOrigin": {
+            "x": 4,
+            "y": 4,
+            "xOff": 0,
+            "yOff": 1
+        },
+        "mapGrid": {
+            "xSize": 3,
+            "ySize": 3
+        }
+    },
+    "example4x4": {
+        "canvas": {
+            "widthMultiplier": 10,
+            "heightMultiplier": 9
+        },
+        "mapOrigin": {
+            "x": 4,
+            "y": 3,
+            "xOff": 0,
+            "yOff": 1
+        },
+        "mapGrid": {
+            "xSize": 4,
+            "ySize": 4
+        }
+    },
+    "example5x5": {
+        "canvas": {
+            "widthMultiplier": 10,
+            "heightMultiplier": 10
+        },
+        "mapOrigin": {
+            "x": 4,
+            "y": 3,
+            "xOff": 0,
+            "yOff": 1
+        },
+        "mapGrid": {
+            "xSize": 5,
+            "ySize": 5
+        }
+    },
+    "example15x15": {
+        "canvas": {
+            "widthMultiplier": 16,
+            "heightMultiplier": 16
+        },
+        "mapOrigin": {
+            "x": 7,
+            "y": 1,
+            "xOff": 0,
+            "yOff": 1
+        },
+        "mapGrid": {
+            "xSize": 15,
+            "ySize": 15
+        }
+    }
+}

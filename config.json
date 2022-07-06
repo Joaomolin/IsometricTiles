@@ -1,0 +1,20 @@
+{
+    "sprite": {
+        "tileWidth": 64,
+        "tileHeight": 32
+    },
+    "canvas": {
+        "widthMultiplier": 20,
+        "heightMultiplier": 20
+    },
+    "mapOrigin": {
+        "x": 9,
+        "y": 3,
+        "xOff": 0,
+        "yOff": 1
+    },
+    "mapGrid": {
+        "xSize": 15,
+        "ySize": 15
+    }
+}
