@@ -39,7 +39,7 @@ class App {
 
 		app.initFlatTiles = function () {
 			var sheet = new Image();
-			sheet.src = "/FlatTiles.png";
+			sheet.src = "./FlatTiles.png";
 			for (let i = 0; i < 6; i++) {
 				app.level.tileTypes.push(new Tile(sheet, config.sprite.tileWidth * i, 0, config.sprite.tileWidth, config.sprite.tileHeight));
 			}
