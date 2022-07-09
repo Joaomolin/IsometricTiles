@@ -5,13 +5,13 @@
     },
     "canvas": {
         "widthMultiplier": 20,
-        "heightMultiplier": 20
+        "heightMultiplier": 21
     },
     "mapOrigin": {
         "x": 9,
-        "y": 3,
+        "y": 4,
         "xOff": 0,
-        "yOff": 1
+        "yOff": 0
     },
     "mapGrid": {
         "xSize": 15,

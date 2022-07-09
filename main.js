@@ -7,10 +7,12 @@ class App {
 		const app = this;
 		app.canvas = document.getElementById("canvas");
 		app.ctx = app.canvas.getContext("2d");
-		app.btn = document.getElementById("btn");
+		app.debugBtn = document.getElementById("debugBtn");
+		app.tilesetBtn = document.getElementById("tilesetBtn");
 		app.canvas.width = config.sprite.tileWidth * config.canvas.widthMultiplier;
 		app.canvas.height = config.sprite.tileHeight * config.canvas.heightMultiplier;
 
+		app.tileset = 0;
 		app.debug = false;
 		app.placingTileIndex = 1;
 
@@ -38,10 +40,31 @@ class App {
 		};
 
 		app.initFlatTiles = function () {
+			app.level.tileTypes.length = 0
 			var sheet = new Image();
 			sheet.src = "./FlatTiles.png";
 			for (let i = 0; i < 6; i++) {
-				app.level.tileTypes.push(new Tile(sheet, config.sprite.tileWidth * i, 0, config.sprite.tileWidth, config.sprite.tileHeight));
+				app.level.tileTypes.push(new Tile(sheet, config.sprite.tileWidth * i, 0, config.sprite.tileWidth, config.sprite.tileHeight * 2));
+			}
+
+		}
+
+		app.initBigTiles = function () {
+			app.level.tileTypes.length = 0
+			var sheet = new Image();
+			sheet.src = "./FlatTilesBig.png";
+			for (let i = 0; i < 6; i++) {
+				app.level.tileTypes.push(new Tile(sheet, config.sprite.tileWidth * i, 0, config.sprite.tileWidth, config.sprite.tileHeight * 2));
+			}
+
+		}
+
+		app.initNiceGrass = function () {
+			app.level.tileTypes.length = 0
+			var sheet = new Image();
+			sheet.src = "./NiceGrass.png";
+			for (let i = 0; i < 6; i++) {
+				app.level.tileTypes.push(new Tile(sheet, config.sprite.tileWidth * i, 0, config.sprite.tileWidth, config.sprite.tileHeight * 2));
 			}
 
 		}
@@ -77,8 +100,12 @@ class App {
 			var y = selectedTile.selectedY + selectedTile.offsetY;
 			var isoPt = app.level.cartToIso(new Point(x, y));
 
+			if (app.isMouseOnGrid()){
+				app.ctx.globalAlpha = 0.5;
+			}
 			app.ctx.drawImage(tile.img, tile.imgX, tile.imgY, tile.imgW, tile.imgH,
 				isoPt.x - tile.imgW / 2, isoPt.y - tile.imgY + tile.imgH / 2, tile.imgW, tile.imgH);
+			app.ctx.globalAlpha = 1;
 
 			if (app.debug) {
 				app.ctx.strokeRect(selectedTile.xPos, selectedTile.yPos, app.level.tileWidth, app.level.tileHeight);
@@ -166,7 +193,7 @@ class App {
 						var isoPt = app.level.cartToIso(new Point(x, y));
 
 						app.ctx.fillStyle = 'darkGray';
-						app.ctx.fillRect(isoPt.x, isoPt.y, app.level.tileWidth, app.level.tileHeight);
+						app.ctx.fillRect(isoPt.x - tile.imgW / 2, isoPt.y - tile.imgY + tile.imgH / 2, tile.imgW, tile.imgH);
 
 
 					}
@@ -183,14 +210,13 @@ class App {
 
 
 					app.ctx.drawImage(tile.img, tile.imgX, tile.imgY, tile.imgW, tile.imgH,
-						isoPt.x, isoPt.y, app.level.tileWidth, app.level.tileHeight);
+						isoPt.x - tile.imgW / 2, isoPt.y - tile.imgY + tile.imgH / 2, tile.imgW, tile.imgH);
 
 
 					if (app.debug) {
 						app.ctx.strokeStyle = 'white';
-						app.ctx.strokeRect(isoPt.x, isoPt.y, app.level.tileWidth, app.level.tileHeight);
+						app.ctx.strokeRect(isoPt.x - tile.imgW / 2, isoPt.y - tile.imgY + tile.imgH / 2, tile.imgW, tile.imgH);
 						app.ctx.font = app.ctx.font.replace(/\d+px/, "20px");
-						// app.ctx.fillText(`${i} / ${j}`, isoPt.x + app.level.tileWidth / 3, isoPt.y + app.level.tileHeight / 2);
 					}
 				}
 			}
@@ -214,8 +240,24 @@ class App {
 			offsetY: 0,
 		};
 
-		app.btn.addEventListener('click', function (e) {
+		app.debugBtn.addEventListener('click', function (e) {
 			app.debug = !app.debug;
+		});
+
+		app.tilesetBtn.addEventListener('click', function (e) {
+			app.tileset = app.tileset >= 2 ? 0 : app.tileset + 1; 
+
+			switch(app.tileset){
+				case 1:
+					app.initBigTiles();
+					break;
+				case 2:
+					app.initNiceGrass();
+					break;
+				default:
+					app.initFlatTiles();
+					break;
+			}			
 		});
 
 		canvas.addEventListener('click', function (e) {
@@ -262,9 +304,13 @@ class App {
 
 		};
 
-
 		app.getTileUnderMouse = function () {
 			return new Point(selectedTile.selectedX + selectedTile.offsetX + config.mapOrigin.xOff, selectedTile.selectedY + selectedTile.offsetY + config.mapOrigin.yOff);
+		}
+
+		app.isMouseOnGrid = function () {
+			const pos = app.getTileUnderMouse();
+			return pos.x >= 0 && pos.y >= 0 && pos.x < config.mapGrid.xSize && pos.y <= config.mapGrid.ySize;
 		}
 	}
 
