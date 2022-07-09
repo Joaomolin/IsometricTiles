@@ -310,7 +310,7 @@ class App {
 
 		app.isMouseOnGrid = function () {
 			const pos = app.getTileUnderMouse();
-			return pos.x >= 0 && pos.y >= 0 && pos.x < config.mapGrid.xSize && pos.y <= config.mapGrid.ySize;
+			return pos.x >= 0 && pos.y >= 0 && pos.x < config.mapGrid.xSize && pos.y < config.mapGrid.ySize;
 		}
 	}
 
